@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Router, Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import {
   NavContainer,
@@ -13,6 +13,7 @@ import {
 
 const Home = () => {
   const [pagesData, setPagesData] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://bootcampapi.techcs.io/api/fe/v1/detail/category/all")
@@ -21,21 +22,18 @@ const Home = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const goToSignIn = () => {
-    <Link to="/SignIn" />;
-  };
   return (
     <>
       <NavContainer>
         <ImgContainer>
           <img src="./assets/logo.svg" width="129px" height="42px" alt="" />
           <ButtonContainer>
-            <Link>
+            <Link style={{ cursor: "pointer" }}>
               <Button>
                 <img src="./assets/PlusImage.svg" alt="" /> Ürün Ekle
               </Button>
             </Link>
-            <Link to="/SignIn">
+            <Link to="/Register">
               <Button>
                 <img src="./assets/PersonImage.svg" alt="" /> Kayıt Ol
               </Button>
@@ -47,11 +45,17 @@ const Home = () => {
         <img src="./assets/Banner1.png" alt="asd" width="100%" height="100%" />
       </Banner>
       <CategoryContainer>
+        <div>
+          <CategoryButton>Hepsi</CategoryButton>
+        </div>
         {pagesData.map((product) => (
           <div key={product.id}>
             <CategoryButton>{product.title}</CategoryButton>
           </div>
         ))}
+        <div>
+          <CategoryButton>Diğer</CategoryButton>
+        </div>
       </CategoryContainer>
     </>
   );

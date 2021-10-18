@@ -7,6 +7,7 @@ background-color:#FBFBFB;
 display:flex;
 max-width:1920px;
 max-height:1080px;
+background:black;
 `;
 export const Banner = Styled.div`
 object-fit:cover;
@@ -18,6 +19,7 @@ export const SignInContainer = Styled.div`
 display:flex;
 margin:auto;
 flex-direction:column;
+
 `;
 export const Logo = Styled.div`
 display:flex;
@@ -37,6 +39,9 @@ justify-content:center;
 display:flex;
 flex-direction:column;
 font-family: 'Nunito', sans-serif;
+`;
+export const EmailAndPasswordContainer = Styled.form`
+margin:auto;
 `;
 
 export const EmailContainer = Styled.div`
@@ -70,13 +75,18 @@ font-size:15px;
 font-family: 'Nunito', sans-serif;
 margin-bottom:20px;
 margin-top:0px;
+&:active{
+    background-color:#4B9CE2;
+    border: 1px solid #4B9CE2;
+}
 `;
 
 export const SignInButton = Styled.button`
 border:none;
 width:390px;
 border-radius:5px;
-font-family: 'Nunito', sans-serif;
+font-weight:normal;
+font-size:14px;
 color:white;
 background-color:#4B9CE2;
 padding:10px;
@@ -84,6 +94,12 @@ margin:auto;
 display:flex;
 align-items:center;
 justify-content:center;
+&:hover{
+    cursor:pointer;
+}
+&:active{
+    background-color:black;
+}
 `;
 
 export const LoginText = Styled.div`

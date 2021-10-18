@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -7,15 +7,16 @@ import {
   Logo,
   InnerContainer,
   InformationContainer,
-  EmailContainer,
+  EmailAndPasswordContainer,
   EmailInput,
-  PasswordContainer,
   PasswordInput,
   SignInButton,
   LoginText,
-} from "./styled/SignInSc";
+} from "./styled/RegisterSc";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <Container>
       <Banner>
@@ -32,23 +33,32 @@ const Login = () => {
         </Logo>
         <InnerContainer>
           <InformationContainer>
-            <p style={{ fontSize: "30px" }}>Giriş Yap</p>
+            <p style={{ fontSize: "30px", fontWeight: "bold" }}>Giriş Yap</p>
             <p>Fırsatlardan Yararlanmak İçin Giriş Yap!</p>
           </InformationContainer>
-          <EmailContainer>
+          <EmailAndPasswordContainer>
             <p>Email</p>
-            <EmailInput type="email" placeholder="Email@example.com" />
-          </EmailContainer>
-          <PasswordContainer>
+            <EmailInput
+              type="email"
+              placeholder="Email@example.com"
+              onChange={(event) => setEmail(event.target.value)}
+              value={email}
+            />
+
             <p>Şifre</p>
-            <PasswordInput type="password" placeholder="Örn:12345" />
-          </PasswordContainer>
-          <SignInButton>Giriş Yap</SignInButton>
+            <PasswordInput
+              type="password"
+              placeholder="Örn:12345"
+              onChange={(event) => setPassword(event.target.value)}
+              value={password}
+            />
+          </EmailAndPasswordContainer>
+          <SignInButton onClick={Login}>Giriş Yap</SignInButton>
           <LoginText>
             <p>
               Hesabın yok mu?{""}{" "}
               <Link
-                to="/SignIn"
+                to="/Register"
                 style={{ textDecoration: "none", color: "#4B9CE2" }}
               >
                 {" "}

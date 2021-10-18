@@ -7,6 +7,7 @@ background-color:#FBFBFB;
 display:flex;
 max-width:1920px;
 max-height:1080px;
+background:black;
 `;
 export const Banner = Styled.div`
 object-fit:cover;
@@ -18,6 +19,7 @@ export const SignInContainer = Styled.div`
 display:flex;
 margin:auto;
 flex-direction:column;
+
 `;
 export const Logo = Styled.div`
 display:flex;
@@ -37,6 +39,11 @@ justify-content:center;
 display:flex;
 flex-direction:column;
 font-family: 'Nunito', sans-serif;
+`;
+
+export const EmailAndPasswordContainer = Styled.form`
+margin:auto;
+display:flex;
 `;
 
 export const EmailContainer = Styled.div`
