@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { authRegisterAction } from "../redux/actions/AuthAction";
+import { Link, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import authRegisterAction from "../redux/actions/AuthAction";
+
 import {
   Container,
   Banner,
@@ -15,20 +16,22 @@ import {
   SignInButton,
   LoginText,
 } from "./styled/RegisterSc";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  console.log(state);
+  const register = useSelector((state) => state);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(authRegisterAction(user));
-    setUser({
-      email: "",
-      password: "",
-    });
+    console.log("state", register);
+    console.log("register-page", user);
   };
+  // if (localStorage.length !== "") return <Redirect to="/Login" />;
   return (
     <Container>
       <Banner>
@@ -53,6 +56,7 @@ const Register = () => {
             <EmailInput
               type="email"
               placeholder="Email@example.com"
+              name="E-mail"
               value={user.email}
               onChange={(event) =>
                 setUser({ ...user, email: event.target.value })
@@ -63,6 +67,7 @@ const Register = () => {
             <PasswordInput
               type="password"
               placeholder="Örn:12345"
+              name="Password"
               value={user.password}
               onChange={(event) =>
                 setUser({ ...user, password: event.target.value })
@@ -92,10 +97,6 @@ const Register = () => {
     </Container>
   );
 };
-
-// const mapStateToProps = (state) => {
-//   return {};
-// };
 
 // const mapDispatchToProps = (dispatch) => {
 //   return {

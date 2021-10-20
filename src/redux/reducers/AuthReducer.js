@@ -1,26 +1,33 @@
-import jwtDecode from "jwt-decode";
-import { toast } from "react-toastify";
 const INITIAL_STATE = {
+  user: { email: "", password: "" },
   token: "",
-  isLoggedIn: false,
-  email: "",
-  password: "",
+  isFetching: false,
+  isError: false,
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "REGISTER":
-      toast("Welcome...", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      const user = jwtDecode(action.token);
+    case "REGISTER_PENDING":
       return {
-        ...INITIAL_STATE,
-        token: action.token,
-        email: user.email,
-        password: user.password,
-        _id: user._id,
-        isLoggedIn: true,
+        ...state,
+        isFetching: true,
+        user: {},
+        isError: false,
+      };
+    case "REGISTER_SUCCESS":
+      return {
+        ...state,
+        user: action.data,
+        token: action.payload,
+        isFetching: false,
+        isError: false,
+      };
+
+    case "REGISTER_FAILED":
+      return {
+        ...state,
+        isFetching: false,
+        isError: true,
       };
     default:
       return state;

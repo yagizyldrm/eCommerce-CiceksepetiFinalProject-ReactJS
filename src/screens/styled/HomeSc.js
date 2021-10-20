@@ -10,7 +10,9 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 height: 100%;
-margin:0 11.5%;
+max-width:1480px;
+margin:0 auto;
+
 `;
 
 export const ButtonContainer = Styled.div`
@@ -70,4 +72,54 @@ color:#525252;
 &:active{
     border-bottom:2px solid #4B9CE2;
 }
+`;
+
+export const ProductContainer = Styled.div`
+max-width:1480px;
+margin: 10px auto;
+display:flex;
+gap:20px;
+flex-wrap: wrap
+
+`;
+
+export const ItemContainer = Styled.div`
+width:270px;
+height:300px;
+padding:5px;
+background-color:white;
+border-radius:5px;
+display:flex;
+flex-direction:column;
+`;
+
+export const ImageContainer = Styled.div`
+width=250px;
+height:280px;
+margin: 1px auto;
+display:flex;
+border-radius:5px;
+`;
+
+export const BrandAndColorContainer = Styled.div`
+margin:0 10px;
+display:flex;
+justify-content:space-between;
+`;
+
+export const Brand = Styled.p`
+color:#4B9CE2;
+font-weight:bold;
+text-transform:capitalize;
+font-size:13px;
+`;
+export const Color = Styled.p`
+text-transform:capitalize;
+font-weight:bold;
+font-size:13px;
+`;
+export const Price = Styled.p`
+font-weight:bold;
+margin-left:10px;
+font-size:20px;
 `;
