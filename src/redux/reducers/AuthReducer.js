@@ -17,8 +17,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case "REGISTER_SUCCESS":
       return {
         ...state,
-        user: action.data,
-        token: action.payload,
+        user: action.user,
+        token: action.data,
         isFetching: false,
         isError: false,
       };
@@ -35,3 +35,13 @@ const authReducer = (state = INITIAL_STATE, action) => {
 };
 
 export default authReducer;
+
+// function createReducer(initialState, handlers) {
+//   return function reducer(state = initialState, action) {
+//     if (handlers.hasOwnProperty(action.type)) {
+//       return handlers[action.type](state, action)
+//     } else {
+//       return state
+//     }
+//   }
+// }

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import authRegisterAction from "../redux/actions/AuthAction";
+
 import {
   Container,
   Banner,
@@ -13,10 +16,22 @@ import {
   SignInButton,
   LoginText,
 } from "./styled/RegisterSc";
+import { useDispatch } from "react-redux";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Register = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const dispatch = useDispatch();
+  const register = useSelector((state) => state);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(authRegisterAction(user));
+    console.log("state", register);
+    console.log("register-page", user);
+  };
+  // if (localStorage.length !== "") return <Redirect to="/Login" />;
   return (
     <Container>
       <Banner>
@@ -33,33 +48,44 @@ const Login = () => {
         </Logo>
         <InnerContainer>
           <InformationContainer>
-            <p style={{ fontSize: "30px", fontWeight: "bold" }}>Giriş Yap</p>
-            <p>Fırsatlardan Yararlanmak İçin Giriş Yap!</p>
+            <p style={{ fontSize: "30px", fontWeight: "bold" }}>Üye Ol</p>
+            <p>Fırsatlardan Yararlanmak İçin Üye Ol!</p>
           </InformationContainer>
-          <EmailAndPasswordContainer>
-            <p>Email</p>
+          <EmailAndPasswordContainer onSubmit={handleSubmit}>
+            <label>Email</label>
             <EmailInput
               type="email"
               placeholder="Email@example.com"
-              onChange={(event) => setEmail(event.target.value)}
-              value={email}
+              name="E-mail"
+              value={user.email}
+              onChange={(event) =>
+                setUser({ ...user, email: event.target.value })
+              }
             />
 
-            <p>Şifre</p>
+            <label>Şifre</label>
             <PasswordInput
               type="password"
               placeholder="Örn:12345"
-              onChange={(event) => setPassword(event.target.value)}
-              value={password}
+              name="Password"
+              value={user.password}
+              onChange={(event) =>
+                setUser({ ...user, password: event.target.value })
+              }
             />
+            <SignInButton type="submit">Giriş Yap</SignInButton>
           </EmailAndPasswordContainer>
-          <SignInButton onClick={Login}>Giriş Yap</SignInButton>
+
           <LoginText>
             <p>
-              Hesabın yok mu?{""}{" "}
+              Hesabın yok mu?{" "}
               <Link
                 to="/Register"
-                style={{ textDecoration: "none", color: "#4B9CE2" }}
+                style={{
+                  textDecoration: "none",
+                  color: "#4B9CE2",
+                  fontWeight: "bold",
+                }}
               >
                 {" "}
                 Üye Ol
@@ -72,4 +98,10 @@ const Login = () => {
   );
 };
 
-export default Login;
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     register: (email, password) => {},
+//   };
+// };
+
+export default Register;
