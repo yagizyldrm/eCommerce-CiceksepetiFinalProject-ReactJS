@@ -42,27 +42,22 @@ font-family: 'Nunito', sans-serif;
 `;
 export const EmailAndPasswordContainer = Styled.form`
 margin:auto;
+flex-direction:column;
+
 `;
 
-export const EmailContainer = Styled.div`
-font-family: 'Nunito', sans-serif;
-padding:0px 100px;
-background-color:white;
-`;
 export const EmailInput = Styled.input`
 width:372px;
 border-radius:5px;
 background-color:#F4F4F4;
 justify-content:flex-start;
+margin:0px auto;
 display:flex;
 padding:7px;
 font-size:15px;
 font-family: 'Nunito', sans-serif;
 `;
-export const PasswordContainer = Styled.div`
-font-family: 'Nunito', sans-serif;
-padding:0px 100px;
-`;
+
 export const PasswordInput = Styled.input`
 width:372px;
 
@@ -73,12 +68,17 @@ display:flex;
 padding:7px;
 font-size:15px;
 font-family: 'Nunito', sans-serif;
-margin-bottom:20px;
-margin-top:0px;
+margin:0px auto 10px auto;
 &:active{
     background-color:#4B9CE2;
     border: 1px solid #4B9CE2;
 }
+`;
+export const Label = Styled.label`
+margin:0 auto;
+width:480px;
+display:flex;
+justify-content:flex-start;
 `;
 
 export const SignInButton = Styled.button`

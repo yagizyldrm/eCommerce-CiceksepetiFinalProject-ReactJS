@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Route, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import {
   Banner,
@@ -13,19 +13,13 @@ import {
   Color,
   Price,
 } from "./styled/HomeSc";
+
 export const Home = () => {
   const [categoryData, setCategoryData] = useState([]);
   const [productData, setProductData] = useState([]);
   const [filteredData, setFilteredData] = useState(productData);
-  const [productDetail, setProductDetail] = useState({});
-
-  // const allCategories = [
-  //   "ALL",
-  //   ...productData.map((item) => item.category.title),
-  // ];
-  // console.log(allCategories);
-  const [isLoading, setIsLoading] = useState(true);
-  const { id } = useParams();
+  const [initialData, setInitialData] = useState(true);
+  const [productDetail, setProductDetail] = useState("");
   useEffect(() => {
     axios
       .get("https://bootcampapi.techcs.io/api/fe/v1/detail/category/all")
@@ -39,13 +33,18 @@ export const Home = () => {
       .get("https://bootcampapi.techcs.io/api/fe/v1/product/all")
       .then((response) => response.data)
       .then((data) => setProductData(data))
-      .then(() => setIsLoading(false))
       .catch((error) => console.log(error));
   }, []);
 
-  // const filter = (button) => {
-  //   const filteredData = productData.filter(item => item.category === button )
-  // }
+  const getDetail = (slug) => {
+    filteredData.find((e) => e.slug === slug);
+  };
+
+  // const getDetail = (props) => {
+  //   const detail = filteredData.find((item) => item.id === props.id);
+  //   setProductDetail(detail);
+  //   console.log(detail);
+  // };
 
   const handleProduct = (props) => {
     const filter = productData.filter((item) => {
@@ -75,46 +74,87 @@ export const Home = () => {
           {categoryData.map((category) => (
             <div key={category.id}>
               <CategoryButton
-                onClick={() => handleProduct(`${category.title}`)}
+                onClick={() => {
+                  handleProduct(`${category.title}`);
+                  setInitialData(false);
+                }}
               >
                 {category.title}
               </CategoryButton>
             </div>
           ))}
         </CategoryContainer>
-        <ProductContainer>
-          {filteredData.map((product) => (
-            <div key={product.id}>
-              <Link
-                onClick={() => setProductDetail(product)}
-                to={`/Home/Product/Detail/${product.id}`}
-                style={{
-                  textDecorationLine: "none",
-                  color: "black",
-                }}
-              >
-                <ItemContainer>
-                  <ImageContainer>
-                    <img
-                      src={product.imageUrl}
-                      width="250"
-                      height="205"
-                      alt=""
-                    />
-                  </ImageContainer>
-                  <BrandAndColorContainer>
-                    <Brand>{product.brand.title}</Brand>
-                    <Color>Renk: {product.color.title}</Color>
-                  </BrandAndColorContainer>
-                  <Price>
-                    {product.price}
-                    {""} TL
-                  </Price>
-                </ItemContainer>
-              </Link>
-            </div>
-          ))}
-        </ProductContainer>
+        {initialData ? (
+          <ProductContainer>
+            {productData.map((product) => (
+              <div key={product.id}>
+                <Link
+                  to={{
+                    pathname: `/Home/Product/Detail/${product.id}`,
+                  }}
+                  style={{
+                    textDecorationLine: "none",
+                    color: "black",
+                  }}
+                >
+                  <ItemContainer>
+                    <ImageContainer>
+                      <img
+                        src={product.imageUrl}
+                        width="250"
+                        height="205"
+                        alt=""
+                      />
+                    </ImageContainer>
+                    <BrandAndColorContainer>
+                      <Brand>{product.brand.title}</Brand>
+                      <Color>Renk: {product.color.title}</Color>
+                    </BrandAndColorContainer>
+                    <Price>
+                      {product.price}
+                      {""} TL
+                    </Price>
+                  </ItemContainer>
+                </Link>
+              </div>
+            ))}
+          </ProductContainer>
+        ) : (
+          <ProductContainer>
+            {filteredData.map((product) => (
+              <div key={product.id}>
+                <Link
+                  to={{
+                    pathname: `/Home/Product/Detail/${product.id}`,
+                  }}
+                  style={{
+                    textDecorationLine: "none",
+                    color: "black",
+                  }}
+                >
+                  <ItemContainer>
+                    <ImageContainer>
+                      <img
+                        src={product.imageUrl}
+                        width="250"
+                        height="205"
+                        alt=""
+                      />
+                    </ImageContainer>
+                    <BrandAndColorContainer>
+                      <Brand>{product.brand.title}</Brand>
+                      <Color>Renk: {product.color.title}</Color>
+                    </BrandAndColorContainer>
+                    <Price>
+                      {product.price}
+                      {""} TL
+                    </Price>
+                  </ItemContainer>
+                </Link>
+              </div>
+            ))}
+          </ProductContainer>
+        )}
       </div>
     </>
   );
@@ -198,3 +238,7 @@ export const Home = () => {
 //       break;
 //   }
 // };
+
+// genRow = (vals) => (
+//   vals.map((val, idx) => <Cell key={idx} color={val} selectedColor={this.state.selectedColor} />)
+// )

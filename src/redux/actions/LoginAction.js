@@ -18,7 +18,7 @@ const loginFailed = (error) => ({
 const authloginAction = (user) => async (dispatch) => {
   dispatch(loginPending());
   return await axios
-    .post("https://bootcampapi.techcs.io/api/fe/v1/authorization/signup", user)
+    .post("https://bootcampapi.techcs.io/api/fe/v1/authorization/signin", user)
     .then((response) => {
       localStorage.setItem("token-login", response.data.access_token);
       localStorage.setItem("email-login", user.email);

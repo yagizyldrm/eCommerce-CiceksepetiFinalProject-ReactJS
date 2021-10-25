@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import authRegisterAction from "../redux/actions/AuthAction";
-
+import authLoginAction from "../redux/actions/LoginAction";
 import {
   Container,
   Banner,
@@ -27,11 +26,11 @@ const Register = () => {
   const register = useSelector((state) => state);
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(authRegisterAction(user));
+    dispatch(authLoginAction(user));
     console.log("state", register);
     console.log("register-page", user);
   };
-  // if (localStorage.length !== "") return <Redirect to="/Login" />;
+  if (localStorage.getItem("token-login") !== null) return <Redirect to="/" />;
   return (
     <Container>
       <Banner>
@@ -43,12 +42,18 @@ const Register = () => {
         />
       </Banner>
       <SignInContainer>
-        <Logo>
-          <img src="./assets/logo.svg" width="225px" height="49px" alt="" />
-        </Logo>
+        <Link style={{ display: "flex", margin: "auto" }} to="/">
+          <Logo>
+            <img src="./assets/logo.svg" width="225px" height="49px" alt="" />
+          </Logo>
+        </Link>
         <InnerContainer>
           <InformationContainer>
-            <p style={{ fontSize: "30px", fontWeight: "bold" }}>Üye Ol</p>
+            <p
+              style={{ fontSize: "30px", fontWeight: "bold", color: "#525252" }}
+            >
+              Giriş Yap
+            </p>
             <p>Fırsatlardan Yararlanmak İçin Üye Ol!</p>
           </InformationContainer>
           <EmailAndPasswordContainer onSubmit={handleSubmit}>

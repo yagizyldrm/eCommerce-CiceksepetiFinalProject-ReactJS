@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import authRegisterAction from "../redux/actions/AuthAction";
+import authRegisterAction from "../redux/actions/RegisterAction";
 
 import {
   Container,
@@ -13,6 +13,7 @@ import {
   EmailAndPasswordContainer,
   EmailInput,
   PasswordInput,
+  Label,
   SignInButton,
   LoginText,
 } from "./styled/RegisterSc";
@@ -31,7 +32,9 @@ const Register = () => {
     console.log("state", register);
     console.log("register-page", user);
   };
-  // if (localStorage.length !== "") return <Redirect to="/Login" />;
+
+  if (localStorage.getItem("token") !== null) return <Redirect to="/Login" />;
+
   return (
     <Container>
       <Banner>
@@ -52,7 +55,7 @@ const Register = () => {
             <p>Fırsatlardan Yararlanmak İçin Üye Ol!</p>
           </InformationContainer>
           <EmailAndPasswordContainer onSubmit={handleSubmit}>
-            <label>Email</label>
+            <Label>Email</Label>
             <EmailInput
               type="email"
               placeholder="Email@example.com"
@@ -63,7 +66,7 @@ const Register = () => {
               }
             />
 
-            <label>Şifre</label>
+            <Label>Şifre</Label>
             <PasswordInput
               type="password"
               placeholder="Örn:12345"

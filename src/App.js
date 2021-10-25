@@ -3,11 +3,12 @@ import { Home } from "./screens/Home";
 import Register from "./screens/Register";
 import AddProduct from "./screens/AddProduct";
 import Login from "./screens/Login";
+import Account from "./screens/Account";
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  useParams,
+  Switch,
+  Redirect,
 } from "react-router-dom";
 import ProductDetail from "./screens/ProductDetail";
 import Nav from "./screens/Nav";
@@ -15,14 +16,14 @@ import Nav from "./screens/Nav";
 function App() {
   return (
     <Router>
-      <Route path="/Register" component={Register} />
-      <Route path="/Login" component={Login} />
-      <Nav />
-      <Switch>
-        <Route path="/Home" exact component={Home} />
-        <Route path="/Product/Add" component={AddProduct} />
-        <Route path="/Home/Product/Detail/:id" component={ProductDetail} />
-      </Switch>
+      <Route path="/Register" exact component={Register} />
+      <Route path="/Login" exact component={Login} />
+      <Route path="/" exact render={() => <Redirect to="/Home" />} />
+      <Route path="/Home" component={Nav} />
+      <Route path="/Home" exact component={Home} />
+      <Route path="/Home/Product/Add" component={AddProduct} />
+      <Route path="/Home/Product/Detail/:id" component={ProductDetail} />
+      <Route path="/Home/Account" component={Account} />
     </Router>
   );
 }

@@ -10,9 +10,10 @@ max-height:1080px;
 background:black;
 `;
 export const Banner = Styled.div`
-object-fit:cover;
-max-height:100%;
-max-width:100%;
+object-fit:contain;
+height:100%;
+max-width:737px;
+position:relative;
 `;
 
 export const SignInContainer = Styled.div`
