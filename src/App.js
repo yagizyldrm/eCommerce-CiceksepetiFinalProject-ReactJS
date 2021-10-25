@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import ProductDetail from "./screens/ProductDetail";
 import Nav from "./screens/Nav";
+import ModalPage from "./screens/Modal";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/Home/Product/Add" component={AddProduct} />
       <Route path="/Home/Product/Detail/:id" component={ProductDetail} />
       <Route path="/Home/Account" component={Account} />
+      <Route path="/modal" component={ModalPage} />
     </Router>
   );
 }

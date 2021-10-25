@@ -85,20 +85,19 @@ flex-wrap: wrap
 
 export const ItemContainer = Styled.div`
 width:270px;
-height:300px;
+height:392px;
 padding:5px;
 background-color:white;
-border-radius:5px;
+border-radius:8px;
 display:flex;
 flex-direction:column;
 `;
 
 export const ImageContainer = Styled.div`
-width=250px;
-height:280px;
+width=260px;
+height:292px;
 margin: 1px auto;
 display:flex;
-border-radius:5px;
 `;
 
 export const BrandAndColorContainer = Styled.div`

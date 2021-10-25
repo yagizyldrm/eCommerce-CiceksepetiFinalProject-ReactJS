@@ -101,9 +101,10 @@ export const Home = () => {
                     <ImageContainer>
                       <img
                         src={product.imageUrl}
-                        width="250"
-                        height="205"
+                        width="260px"
+                        height="297px"
                         alt=""
+                        style={{ objectFit: "cover", borderRadius: "8px" }}
                       />
                     </ImageContainer>
                     <BrandAndColorContainer>

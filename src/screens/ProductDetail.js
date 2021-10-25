@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
 import {
   ElementContainer,
   ImageContainer,
@@ -16,10 +17,30 @@ import {
   DescriptionHeader,
   Description,
 } from "./styled/ProductDetailSc";
+import {
+  customStyles,
+  Label,
+  Header,
+  ImageAndTitleContainer,
+  LabelContainer,
+} from "./styled/BuyModalStyleSc";
+
+// const customStyles = {
+//   content: {
+//     top: "50%",
+//     left: "50%",
+//     right: "auto",
+//     bottom: "auto",
+//     marginRight: "-50%",
+//     transform: "translate(-50%, -50%)",
+//   },
+// };
 
 const ProductDetail = ({ match }) => {
   const [delay, setDelay] = useState(false);
   const [itemDetail, setItemDetail] = useState({});
+  const [buyModalIsOpen, setBuyModalIsOpen] = useState(false);
+  const [offerModalIsOpen, setOfferModalIsOpen] = useState(false);
 
   useEffect(() => {
     axios
@@ -30,8 +51,100 @@ const ProductDetail = ({ match }) => {
       .catch((error) => console.log(error));
   }, []);
 
+  function openBuyModal() {
+    setBuyModalIsOpen(true);
+  }
+
+  function closeBuyModal() {
+    setBuyModalIsOpen(false);
+  }
+  function openOfferModal() {
+    setOfferModalIsOpen(true);
+  }
+
+  function closeOfferModal() {
+    setOfferModalIsOpen(false);
+  }
+  const placeOrder = () => {
+    const satik = {
+      isSold: false,
+    };
+    axios
+      .put(
+        `https://bootcampapi.techcs.io/api/fe/v1/product/purchase/${match.params.id}`,
+        satik
+      )
+
+      .then((satik) => console.log(satik));
+  };
+
   return (
     <>
+      <div>
+        <Modal
+          isOpen={buyModalIsOpen}
+          onRequestClose={closeBuyModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <h2>BUY MODAL</h2>
+          <button onClick={closeBuyModal}>Vazgeç</button>
+          <button onClick={placeOrder}>Satın Al</button>
+        </Modal>
+      </div>
+      <div>
+        <Modal
+          isOpen={offerModalIsOpen}
+          onRequestClose={closeOfferModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <div>
+            <Header>
+              <p>{itemDetail?.title}</p>
+              <img
+                src="./assets/XImage.svg"
+                width="18px"
+                height="18px"
+                alt=""
+              />
+            </Header>
+            <div
+              style={{
+                flexDirection: "row",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <ImageAndTitleContainer>
+                <img
+                  src={itemDetail?.imageUrl}
+                  width="50px"
+                  height="50px"
+                  alt=""
+                  style={{ objectFit: "cover", borderRadius: "8px" }}
+                />
+                <p>{itemDetail?.title}</p>
+              </ImageAndTitleContainer>
+              <p>{itemDetail?.price}</p>
+            </div>
+            <div style={{ flexDirection: "column", display: "flex" }}>
+              <LabelContainer>
+                <input type="radio" id="%20" name="offer20" value="" />
+                <Label htmlFor="%20">%20'si Kadar Teklif Ver</Label>
+              </LabelContainer>
+              <LabelContainer>
+                <input type="radio" id="%30" name="offer30" value="huey" />
+                <Label htmlFor="%30">%30'si Kadar Teklif Ver</Label>
+              </LabelContainer>
+              <LabelContainer>
+                <input type="radio" id="%40" name="offer40" value="huey" />
+                <Label htmlFor="%40">%40'si Kadar Teklif Ver</Label>
+              </LabelContainer>
+            </div>
+          </div>
+        </Modal>
+      </div>
       <div
         style={{
           backgroundColor: "#F2F2F2",
@@ -68,8 +181,9 @@ const ProductDetail = ({ match }) => {
                 <p style={{ fontWeight: "bold" }}>{itemDetail?.price} TL</p>
               </PriceContainer>
               <ButtonsContainer>
-                <BuyButton>Satın Al</BuyButton>
-                <OfferButton>Teklif Ver</OfferButton>
+                <BuyButton onClick={openBuyModal}>Satın Al</BuyButton>
+
+                <OfferButton onClick={openOfferModal}>Teklif Ver</OfferButton>
               </ButtonsContainer>
               <DescriptionContainer>
                 <DescriptionHeader>Açıklama</DescriptionHeader>
