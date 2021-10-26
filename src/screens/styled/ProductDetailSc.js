@@ -64,11 +64,11 @@ export const BuyButton = Styled.button`
 border:none;
 color:white;
 background-color:#4B9CE2;
-border-radius:5px;
+border-radius:8px;
 width:235px;
-padding:10px;
+height:45px;
 font-weight:bold;
-font-size:16px;
+font-size:18px;
 cursor:pointer;
 margin-right:10px;
 flex:1;
@@ -77,11 +77,11 @@ export const OfferButton = Styled.button`
 border:none;
 color:#4B9CE2;
 background-color:#F0F8FF;
-border-radius:5px;
+border-radius:8px;
 width:235px;
-padding:10px;
+height:45px;
 font-weight:bold;
-font-size:16px;
+font-size:18px;
 
 cursor:pointer;
 flex:1;
