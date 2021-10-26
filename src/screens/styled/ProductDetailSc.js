@@ -26,8 +26,8 @@ margin-top:20px
 `;
 export const HeaderContainer = Styled.div`
 color:#555555
-margin-bottom:20px;
-font-size:32px;
+margin-top:30px;
+font-size:34px;
 `;
 export const InfoContainer = Styled.div`
 flex-direction:row;
@@ -37,20 +37,23 @@ export const FirstContainer = Styled.div`
 flex-direction:column;
 display:flex;
 font-weight:bold;
-margin-right:30px;
-font-size:14px;
+margin:25 px 20px 0px 0px;
+font-size:15px;
 color:#525252;
 `;
 export const SecondContainer = Styled.div`
 flex-direction:column;
 display:flex;
-font-size:14px;
+font-size:15px;
+margin-left: 20px;
 color:#525252;
+text-transform:capitalize;
 `;
 export const PriceContainer = Styled.div`
 font-size:23px;
 display:flex;
 color:#525252;
+margin-top:30px;
 `;
 export const ButtonsContainer = Styled.div`
 margin: 30px 0 30px 0;
@@ -67,6 +70,7 @@ padding:10px;
 font-weight:bold;
 font-size:16px;
 cursor:pointer;
+margin-right:10px;
 flex:1;
 `;
 export const OfferButton = Styled.button`
@@ -78,7 +82,7 @@ width:235px;
 padding:10px;
 font-weight:bold;
 font-size:16px;
-margin-left:10px;
+
 cursor:pointer;
 flex:1;
 `;
@@ -87,10 +91,11 @@ max-width:480px;
 `;
 export const DescriptionHeader = Styled.div`
 font-weight:bold;
-font-size;16px;
+font-size;18px;
 margin-bottom:10px;
 `;
 export const Description = Styled.div`
-font-size:14px;
+font-size:15px;
+font-weight:regular;
 max-width:480px;
 `;

@@ -41,8 +41,9 @@ const Register = () => {
         <img
           src="./assets/SignInBanner.png"
           alt=""
-          width="834px"
+          width="100%"
           height="1080px"
+          style={{ objectFit: "cover" }}
         />
       </Banner>
       <SignInContainer>
@@ -51,8 +52,19 @@ const Register = () => {
         </Logo>
         <InnerContainer>
           <InformationContainer>
-            <p style={{ fontSize: "30px", fontWeight: "bold" }}>Üye Ol</p>
-            <p>Fırsatlardan Yararlanmak İçin Üye Ol!</p>
+            <p
+              style={{
+                fontSize: "32px",
+                fontWeight: "bold",
+                color: "#525252",
+                margin: "70px auto 10px auto",
+              }}
+            >
+              Üye Ol
+            </p>
+            <p style={{ fontSize: "15px", marginBottom: "50px" }}>
+              Fırsatlardan Yararlanmak İçin Üye Ol!
+            </p>
           </InformationContainer>
           <EmailAndPasswordContainer onSubmit={handleSubmit}>
             <Label>Email</Label>

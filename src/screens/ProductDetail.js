@@ -18,12 +18,18 @@ import {
   Description,
 } from "./styled/ProductDetailSc";
 import {
-  customStyles,
+  BuyModalStyle,
+  OfferModalStyle,
   Label,
   Header,
   ImageAndTitleContainer,
   LabelContainer,
-} from "./styled/BuyModalStyleSc";
+  ApproveButton,
+  OfferInput,
+  BuyModalButtonContainer,
+  BuyModalCloseButton,
+  BuyModalPurchaseButton,
+} from "./styled/ModalStyleSc";
 
 // const customStyles = {
 //   content: {
@@ -84,36 +90,64 @@ const ProductDetail = ({ match }) => {
         <Modal
           isOpen={buyModalIsOpen}
           onRequestClose={closeBuyModal}
-          style={customStyles}
+          style={BuyModalStyle}
           contentLabel="Example Modal"
         >
-          <h2>BUY MODAL</h2>
-          <button onClick={closeBuyModal}>Vazgeç</button>
-          <button onClick={placeOrder}>Satın Al</button>
+          <p
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "20px 20px 12px 20px",
+              fontSize: "25px",
+              fontWeight: "bold",
+            }}
+          >
+            Satın Al
+          </p>
+          <p
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "15px",
+              marginBottom: "20px",
+            }}
+          >
+            Satın Almak istiyor musunuz?
+          </p>
+          <BuyModalButtonContainer>
+            <BuyModalCloseButton onClick={closeBuyModal}>
+              Vazgeç
+            </BuyModalCloseButton>
+            <BuyModalPurchaseButton onClick={placeOrder}>
+              Satın Al
+            </BuyModalPurchaseButton>
+          </BuyModalButtonContainer>
         </Modal>
       </div>
       <div>
         <Modal
           isOpen={offerModalIsOpen}
           onRequestClose={closeOfferModal}
-          style={customStyles}
+          style={OfferModalStyle}
           contentLabel="Example Modal"
         >
           <div>
             <Header>
-              <p>{itemDetail?.title}</p>
-              <img
-                src="./assets/XImage.svg"
-                width="18px"
-                height="18px"
-                alt=""
-              />
+              <h2>{itemDetail?.title}</h2>
+              <h3 style={{ cursor: "pointer" }} onClick={closeOfferModal}>
+                X
+              </h3>
             </Header>
             <div
               style={{
                 flexDirection: "row",
                 display: "flex",
                 justifyContent: "space-between",
+                backgroundColor: "#F0F8FF",
+                padding: "6px",
+                borderRadius: "10px",
               }}
             >
               <ImageAndTitleContainer>
@@ -122,25 +156,31 @@ const ProductDetail = ({ match }) => {
                   width="50px"
                   height="50px"
                   alt=""
-                  style={{ objectFit: "cover", borderRadius: "8px" }}
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    marginRight: "5px",
+                  }}
                 />
-                <p>{itemDetail?.title}</p>
+                <p> {itemDetail?.title}</p>
               </ImageAndTitleContainer>
-              <p>{itemDetail?.price}</p>
+              <p>{itemDetail?.price} TL</p>
             </div>
             <div style={{ flexDirection: "column", display: "flex" }}>
               <LabelContainer>
-                <input type="radio" id="%20" name="offer20" value="" />
+                <input type="radio" id="20%" name="offer20" value="huey1" />
                 <Label htmlFor="%20">%20'si Kadar Teklif Ver</Label>
               </LabelContainer>
               <LabelContainer>
-                <input type="radio" id="%30" name="offer30" value="huey" />
+                <input type="radio" id="30%" name="offer30" value="huey2" />
                 <Label htmlFor="%30">%30'si Kadar Teklif Ver</Label>
               </LabelContainer>
               <LabelContainer>
-                <input type="radio" id="%40" name="offer40" value="huey" />
+                <input type="radio" id="40%" name="offer40" value="huey3" />
                 <Label htmlFor="%40">%40'si Kadar Teklif Ver</Label>
               </LabelContainer>
+              <OfferInput placeholder={"Teklifi Belirle"} />
+              <ApproveButton>Onayla</ApproveButton>
             </div>
           </div>
         </Modal>

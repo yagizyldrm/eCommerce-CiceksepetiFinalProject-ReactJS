@@ -80,7 +80,6 @@ margin: 10px auto;
 display:flex;
 gap:20px;
 flex-wrap: wrap
-
 `;
 
 export const ItemContainer = Styled.div`
@@ -94,7 +93,7 @@ flex-direction:column;
 `;
 
 export const ImageContainer = Styled.div`
-width=260px;
+width:260px;
 height:292px;
 margin: 1px auto;
 display:flex;

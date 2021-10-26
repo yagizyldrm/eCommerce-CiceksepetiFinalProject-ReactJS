@@ -11,6 +11,7 @@ import {
   InformationContainer,
   EmailAndPasswordContainer,
   EmailInput,
+  Label,
   PasswordInput,
   SignInButton,
   LoginText,
@@ -37,8 +38,9 @@ const Register = () => {
         <img
           src="./assets/SignInBanner.png"
           alt=""
-          width="834px"
+          width="100%"
           height="1080px"
+          style={{ objectFit: "cover" }}
         />
       </Banner>
       <SignInContainer>
@@ -50,14 +52,21 @@ const Register = () => {
         <InnerContainer>
           <InformationContainer>
             <p
-              style={{ fontSize: "30px", fontWeight: "bold", color: "#525252" }}
+              style={{
+                fontSize: "32px",
+                fontWeight: "bold",
+                color: "#525252",
+                margin: "70px auto 10px auto",
+              }}
             >
               Giriş Yap
             </p>
-            <p>Fırsatlardan Yararlanmak İçin Üye Ol!</p>
+            <p style={{ fontSize: "15px", marginBottom: "50px" }}>
+              Fırsatlardan Yararlanmak İçin Giriş Yap!
+            </p>
           </InformationContainer>
           <EmailAndPasswordContainer onSubmit={handleSubmit}>
-            <label>Email</label>
+            <Label>Email</Label>
             <EmailInput
               type="email"
               placeholder="Email@example.com"
@@ -68,7 +77,7 @@ const Register = () => {
               }
             />
 
-            <label>Şifre</label>
+            <Label>Şifre</Label>
             <PasswordInput
               type="password"
               placeholder="Örn:12345"
