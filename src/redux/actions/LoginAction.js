@@ -23,7 +23,10 @@ const authloginAction = (user) => async (dispatch) => {
       localStorage.setItem("email-login", user.email);
       dispatch(loginSuccess(response.data.access_token));
     })
-    .catch((error) => dispatch(loginFailed(error)));
+    .catch((error) => {
+      dispatch(loginFailed(error));
+      alert("Lütfen Şifrenizi ve Emailinizi Kontrol Edin");
+    });
 };
 
 export default authloginAction;

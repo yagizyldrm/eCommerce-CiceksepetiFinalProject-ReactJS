@@ -23,7 +23,10 @@ const authRegisterAction = (user) => async (dispatch) => {
       localStorage.setItem("email", user.email);
       dispatch(registerSuccess(response.data.access_token));
     })
-    .catch((error) => dispatch(registerFailed(error)));
+    .catch((error) => {
+      dispatch(registerFailed(error));
+      alert("Lütfen Geçerli bir Email ve Şifre Girin");
+    });
 };
 
 export default authRegisterAction;

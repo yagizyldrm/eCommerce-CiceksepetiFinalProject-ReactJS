@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { Formik, useFormik } from "formik";
+// import { useState } from "react";
+import { Formik } from "formik";
 import * as Yup from "yup";
-import Switch from "react-switch";
 import {
   FormikContainer,
   MainContainer,
@@ -14,7 +13,7 @@ import {
   SaveButton,
 } from "./styled/AddProductSc";
 const AddProduct = () => {
-  const [isOfferable, setIsOfferable] = useState(false);
+  // const [isOfferable, setIsOfferable] = useState(false); this comment lines will be used in future. They are not wrong I just wanted to prevent the console warnings.
   // const formik = useFormik({});
 
   return (
@@ -281,7 +280,7 @@ const AddProduct = () => {
                         value={values.price}
                         onChange={handleChange}
                       />
-                      {/* <div
+                      {/* <div  This section is abandoned due to working unproperly.
                         style={{
                           flexDirection: "baseline",
                           display: "flex",
@@ -365,9 +364,7 @@ const AddProduct = () => {
                           PNG ve JPEG Dosya boyutu: max. 100kb
                         </p>
                       </div>
-                      <SaveButton type="submit" onClick={handleSubmit}>
-                        Kaydet
-                      </SaveButton>
+                      <SaveButton type="submit">Kaydet</SaveButton>
                     </div>
                   </div>
                 </div>

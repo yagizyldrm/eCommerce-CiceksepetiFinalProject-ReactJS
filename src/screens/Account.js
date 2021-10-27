@@ -20,7 +20,8 @@ const Account = () => {
             alt=""
           />
           <p style={{ marginLeft: "5px" }}>
-            {localStorage.getItem("email-login")}
+            {/*Setting the email address which is used in Login/Register screen*/}
+            {localStorage.getItem("email-login")}{" "}
           </p>
         </AccountContainer>
       </div>

@@ -1,5 +1,5 @@
 * {
-  font-family: "Nunito", sans-serif;
+  font-family: "Nunito", sans-serif; /* this line is using to set font family for whole app */
 }
 .App {
   margin: 0px;

@@ -12,7 +12,6 @@ import {
 } from "react-router-dom";
 import ProductDetail from "./screens/ProductDetail";
 import Nav from "./screens/Nav";
-import ModalPage from "./screens/Modal";
 
 function App() {
   return (

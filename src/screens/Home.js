@@ -15,10 +15,12 @@ import {
 } from "./styled/HomeSc";
 
 export const Home = () => {
+  //Setting states
   const [categoryData, setCategoryData] = useState([]);
   const [productData, setProductData] = useState([]);
   const [filteredData, setFilteredData] = useState(productData);
   const [initialData, setInitialData] = useState(true);
+  //fetching data for category section
   useEffect(() => {
     axios
       .get("https://bootcampapi.techcs.io/api/fe/v1/detail/category/all")
@@ -26,6 +28,7 @@ export const Home = () => {
       .then((data) => setCategoryData(data))
       .catch((error) => console.log(error));
   }, []);
+  //fetching the whole product data for product section
   useEffect(() => {
     axios
       .get("https://bootcampapi.techcs.io/api/fe/v1/product/all")
@@ -33,6 +36,7 @@ export const Home = () => {
       .then((data) => setProductData(data))
       .catch((error) => console.log(error));
   }, []);
+  //Filtering the data accordingly on specific cagetory
   const handleProduct = (props) => {
     const filter = productData.filter((item) => {
       return item.category.title === props;
@@ -57,20 +61,24 @@ export const Home = () => {
             </CategoryButton>
           </div>
 
-          {categoryData.map((category) => (
-            <div key={category.id}>
-              <CategoryButton
-                onClick={() => {
-                  handleProduct(`${category.title}`);
-                  setInitialData(false);
-                }}
-              >
-                {category.title}
-              </CategoryButton>
-            </div>
-          ))}
+          {categoryData.map(
+            (
+              category //Mapping the category section
+            ) => (
+              <div key={category.id}>
+                <CategoryButton
+                  onClick={() => {
+                    handleProduct(`${category.title}`);
+                    setInitialData(false);
+                  }}
+                >
+                  {category.title}
+                </CategoryButton>
+              </div>
+            )
+          )}
         </CategoryContainer>
-        {initialData ? (
+        {initialData ? ( // This logic is using to render whole product data when the page render. So it prevent the product section to being empty at rendering.
           <ProductContainer>
             {productData.map((product) => (
               <div key={product.id}>
@@ -108,38 +116,41 @@ export const Home = () => {
           </ProductContainer>
         ) : (
           <ProductContainer>
-            {filteredData.map((product) => (
-              <div key={product.id}>
-                <Link
-                  to={{
-                    pathname: `/Home/Product/Detail/${product.id}`,
-                  }}
-                  style={{
-                    textDecorationLine: "none",
-                    color: "black",
-                  }}
-                >
-                  <ItemContainer>
-                    <ImageContainer>
-                      <img
-                        src={product.imageUrl}
-                        width="250"
-                        height="205"
-                        alt=""
-                      />
-                    </ImageContainer>
-                    <BrandAndColorContainer>
-                      <Brand>{product.brand.title}</Brand>
-                      <Color>Renk: {product.color.title}</Color>
-                    </BrandAndColorContainer>
-                    <Price>
-                      {product.price}
-                      {""} TL
-                    </Price>
-                  </ItemContainer>
-                </Link>
-              </div>
-            ))}
+            {filteredData.map(
+              // This logic is using to render specific items accordingly on category
+              (product) => (
+                <div key={product.id}>
+                  <Link
+                    to={{
+                      pathname: `/Home/Product/Detail/${product.id}`,
+                    }}
+                    style={{
+                      textDecorationLine: "none",
+                      color: "black",
+                    }}
+                  >
+                    <ItemContainer>
+                      <ImageContainer>
+                        <img
+                          src={product.imageUrl}
+                          width="250"
+                          height="205"
+                          alt=""
+                        />
+                      </ImageContainer>
+                      <BrandAndColorContainer>
+                        <Brand>{product.brand.title}</Brand>
+                        <Color>Renk: {product.color.title}</Color>
+                      </BrandAndColorContainer>
+                      <Price>
+                        {product.price}
+                        {""} TL
+                      </Price>
+                    </ItemContainer>
+                  </Link>
+                </div>
+              )
+            )}
           </ProductContainer>
         )}
       </div>

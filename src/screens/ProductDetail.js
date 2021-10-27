@@ -33,7 +33,7 @@ import {
 } from "./styled/ModalStyleSc";
 
 const ProductDetail = ({ match }) => {
-  // match is a unique word which is we have to use it to get the data from the link down below
+  // match is a unique word which is making possible to get the data from the link down below
   const [delay, setDelay] = useState(false);
   const [itemDetail, setItemDetail] = useState({});
   const [buyModalIsOpen, setBuyModalIsOpen] = useState(false);
@@ -95,6 +95,8 @@ const ProductDetail = ({ match }) => {
   return (
     <>
       <div>
+        {" "}
+        {/* BUY MODAL */}
         <Modal //this comes from modal library
           isOpen={buyModalIsOpen}
           onRequestClose={closeBuyModal}
@@ -141,6 +143,7 @@ const ProductDetail = ({ match }) => {
         </Modal>
       </div>
       <div>
+        {/* OFFER MODAL */}
         <Modal
           isOpen={offerModalIsOpen}
           onRequestClose={closeOfferModal}
@@ -149,6 +152,7 @@ const ProductDetail = ({ match }) => {
         >
           <div>
             <Header>
+              {/* This "?" is mandatory while setting the specific data, otherwise the page doesn't render*/}
               <h2>{itemDetail?.title}</h2>
               <h3
                 style={{ cursor: "pointer" }} //I used X here because the image that I wanted to add here wasn't working properly.
@@ -187,7 +191,7 @@ const ProductDetail = ({ match }) => {
               <p>{itemDetail?.price} TL</p>
             </div>
             <div style={{ flexDirection: "column", display: "flex" }}>
-              {/* name attribute must be the same for every each of input otherwise this may effect troubleshooting */}
+              {/* name attribute must be the same for every each of input, otherwise this may effect problems while setting radio inputs. */}
               <LabelContainer>
                 <input
                   type="radio"
@@ -246,7 +250,7 @@ const ProductDetail = ({ match }) => {
           height: "889.4px",
         }}
       >
-        {delay ? (
+        {delay ? ( //Using this logic to prevent the javaScript working logic
           <ElementContainer>
             <ImageContainer>
               <img
@@ -306,8 +310,10 @@ const ProductDetail = ({ match }) => {
                 )}
               </PriceContainer>
 
-              {isBought ? (
-                <NotAvaliableButton>Bu Ürün Satışta Değil</NotAvaliableButton>
+              {isBought ? ( //this logic is using to change the buttons into another unclickable one.
+                <NotAvaliableButton unselectable="on">
+                  Bu Ürün Satışta Değil
+                </NotAvaliableButton>
               ) : (
                 <ButtonsContainer>
                   <BuyButton onClick={openBuyModal}>Satın Al</BuyButton>

@@ -20,20 +20,18 @@ import {
 import { useDispatch } from "react-redux";
 
 const Register = () => {
+  //Creating an empty object so we can put the data which is getting from inputs.
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); //This line is making to call action
   const register = useSelector((state) => state);
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(authRegisterAction(user));
-    console.log("state", register);
-    console.log("register-page", user);
+    e.preventDefault(); //This line is using to prevent the refreshing the page on every submitting. This line is mandatory.
+    dispatch(authRegisterAction(user)); //Here we are putting the user object into action so we can post the object to API.
   };
-
-  if (localStorage.getItem("token") !== null) return <Redirect to="/Login" />;
+  if (localStorage.getItem("token") !== null) return <Redirect to="/Login" />; //This line is using to redirect to home page after an succesfully registering request.
 
   return (
     <Container>
@@ -47,9 +45,11 @@ const Register = () => {
         />
       </Banner>
       <SignInContainer>
-        <Logo>
-          <img src="./assets/logo.svg" width="225px" height="49px" alt="" />
-        </Logo>
+        <Link to="/Home" style={{ margin: "0 auto" }}>
+          <Logo>
+            <img src="./assets/logo.svg" width="225px" height="49px" alt="" />
+          </Logo>
+        </Link>
         <InnerContainer>
           <InformationContainer>
             <p
@@ -67,25 +67,26 @@ const Register = () => {
             </p>
           </InformationContainer>
           <EmailAndPasswordContainer onSubmit={handleSubmit}>
+            {" "}
+            {/* this is a form so we are using submit attribute to get the data */}
             <Label>Email</Label>
             <EmailInput
               type="email"
               placeholder="Email@example.com"
               name="E-mail"
               value={user.email}
-              onChange={(event) =>
-                setUser({ ...user, email: event.target.value })
+              onChange={
+                (event) => setUser({ ...user, email: event.target.value }) //We are setting the email part of the user object
               }
             />
-
             <Label>Şifre</Label>
             <PasswordInput
               type="password"
               placeholder="Örn:12345"
               name="Password"
               value={user.password}
-              onChange={(event) =>
-                setUser({ ...user, password: event.target.value })
+              onChange={
+                (event) => setUser({ ...user, password: event.target.value }) //We are setting the passoword part of the user object
               }
             />
             <SignInButton type="submit">Üye Ol</SignInButton>
@@ -112,11 +113,5 @@ const Register = () => {
     </Container>
   );
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     register: (email, password) => {},
-//   };
-// };
 
 export default Register;
