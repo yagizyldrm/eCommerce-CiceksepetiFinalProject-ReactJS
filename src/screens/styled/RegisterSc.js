@@ -65,7 +65,7 @@ font-size:16px;
 outline:none;
   &:focus{
     border:1px solid #4B9CE2;
-    background-color:#F0F8FF ;
+    background-color:#F0F8FF;
     color:#4B9CE2;
   }
 `;

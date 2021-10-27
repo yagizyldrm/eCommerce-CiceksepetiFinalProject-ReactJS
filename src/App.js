@@ -20,12 +20,14 @@ function App() {
       <Route path="/Register" exact component={Register} />
       <Route path="/Login" exact component={Login} />
       <Route path="/" exact render={() => <Redirect to="/Home" />} />
+
       <Route path="/Home" component={Nav} />
       <Route path="/Home" exact component={Home} />
-      <Route path="/Home/Product/Add" component={AddProduct} />
-      <Route path="/Home/Product/Detail/:id" component={ProductDetail} />
-      <Route path="/Home/Account" component={Account} />
-      <Route path="/modal" component={ModalPage} />
+      <Switch>
+        <Route path="/Home/Product/Add" component={AddProduct} />
+        <Route path="/Home/Product/Detail/:id" component={ProductDetail} />
+        <Route path="/Home/Account" component={Account} />
+      </Switch>
     </Router>
   );
 }

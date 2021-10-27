@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   NavContainer,
   ImgContainer,
@@ -29,7 +29,7 @@ const Nav = () => {
           )}
 
           {localStorage.getItem("email-login") !== null ? (
-            <Link to="/Account">
+            <Link to="/Home/Account">
               <Button>
                 <img src="./assets/PersonImage.svg" alt="" /> Hesabım
               </Button>

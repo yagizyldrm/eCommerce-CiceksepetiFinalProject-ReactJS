@@ -4,7 +4,14 @@ import { AccountContainer } from "./styled/AccountSc";
 const Account = () => {
   return (
     <>
-      <div style={{ backgroundColor: "#F2F2F2", flex: "1" }}>
+      <div
+        style={{
+          backgroundColor: "#F2F2F2",
+          paddingTop: "5px",
+          width: "100%",
+          height: "889.4px",
+        }}
+      >
         <AccountContainer>
           <img
             src="./assets/AccountImage.svg"

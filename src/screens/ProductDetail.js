@@ -16,6 +16,7 @@ import {
   DescriptionContainer,
   DescriptionHeader,
   Description,
+  NotAvaliableButton,
 } from "./styled/ProductDetailSc";
 import {
   BuyModalStyle,
@@ -31,24 +32,17 @@ import {
   BuyModalPurchaseButton,
 } from "./styled/ModalStyleSc";
 
-// const customStyles = {
-//   content: {
-//     top: "50%",
-//     left: "50%",
-//     right: "auto",
-//     bottom: "auto",
-//     marginRight: "-50%",
-//     transform: "translate(-50%, -50%)",
-//   },
-// };
-
 const ProductDetail = ({ match }) => {
+  // match is a unique word which is we have to use it to get the data from the link down below
   const [delay, setDelay] = useState(false);
   const [itemDetail, setItemDetail] = useState({});
   const [buyModalIsOpen, setBuyModalIsOpen] = useState(false);
   const [offerModalIsOpen, setOfferModalIsOpen] = useState(false);
-
+  const [isBought, setIsBought] = useState(false);
+  const [price, setPrice] = useState(false);
+  const [offeredPrice, setOfferedPrice] = useState("");
   useEffect(() => {
+    //fetching data from the item that we clicked
     axios
       .get(`https://bootcampapi.techcs.io/api/fe/v1/product/${match.params.id}`)
       .then((response) => response.data)
@@ -56,7 +50,7 @@ const ProductDetail = ({ match }) => {
       .then(setDelay(true))
       .catch((error) => console.log(error));
   }, []);
-
+  // basic logic functions
   function openBuyModal() {
     setBuyModalIsOpen(true);
   }
@@ -71,23 +65,37 @@ const ProductDetail = ({ match }) => {
   function closeOfferModal() {
     setOfferModalIsOpen(false);
   }
+
+  function offeredPriceToEmpty() {
+    setOfferedPrice("");
+  }
+  //this fetching is not working properly due to isSold=true in database
+  const sendOfferRequest = () => {
+    axios
+      .post(
+        `https://bootcampapi.techcs.io/api/fe/v1/product/offer/${match.params.id}`,
+        offeredPrice
+      )
+      .then((response) => response.data)
+      .catch((error) => console.log("offer error", error));
+  };
+  //this fethcing is not working either with the same problem above
   const placeOrder = () => {
-    const satik = {
-      isSold: false,
-    };
+    const article = { isSold: false };
     axios
       .put(
         `https://bootcampapi.techcs.io/api/fe/v1/product/purchase/${match.params.id}`,
-        satik
+        article
       )
-
-      .then((satik) => console.log(satik));
+      .then((response) => {
+        setIsBought(response.itemDetail.isSold);
+      })
+      .catch((error) => console.log(error));
   };
-
   return (
     <>
       <div>
-        <Modal
+        <Modal //this comes from modal library
           isOpen={buyModalIsOpen}
           onRequestClose={closeBuyModal}
           style={BuyModalStyle}
@@ -120,7 +128,13 @@ const ProductDetail = ({ match }) => {
             <BuyModalCloseButton onClick={closeBuyModal}>
               Vazgeç
             </BuyModalCloseButton>
-            <BuyModalPurchaseButton onClick={placeOrder}>
+            <BuyModalPurchaseButton
+              onClick={() => {
+                setIsBought(true);
+                closeBuyModal();
+                placeOrder();
+              }}
+            >
               Satın Al
             </BuyModalPurchaseButton>
           </BuyModalButtonContainer>
@@ -136,7 +150,13 @@ const ProductDetail = ({ match }) => {
           <div>
             <Header>
               <h2>{itemDetail?.title}</h2>
-              <h3 style={{ cursor: "pointer" }} onClick={closeOfferModal}>
+              <h3
+                style={{ cursor: "pointer" }} //I used X here because the image that I wanted to add here wasn't working properly.
+                onClick={() => {
+                  closeOfferModal();
+                  setOfferedPrice("");
+                }}
+              >
                 X
               </h3>
             </Header>
@@ -167,20 +187,53 @@ const ProductDetail = ({ match }) => {
               <p>{itemDetail?.price} TL</p>
             </div>
             <div style={{ flexDirection: "column", display: "flex" }}>
+              {/* name attribute must be the same for every each of input otherwise this may effect troubleshooting */}
               <LabelContainer>
-                <input type="radio" id="20%" name="offer20" value="huey1" />
-                <Label htmlFor="%20">%20'si Kadar Teklif Ver</Label>
+                <input
+                  type="radio"
+                  id="20%"
+                  name="offer"
+                  value={itemDetail?.price * 0.2}
+                  onChange={(event) => setOfferedPrice(event.target.value)}
+                />
+                <Label htmlFor="20%">%20'si Kadar Teklif Ver</Label>
+              </LabelContainer>
+
+              <LabelContainer>
+                <input
+                  type="radio"
+                  id="30%"
+                  name="offer"
+                  value={itemDetail?.price * 0.3}
+                  onChange={(event) => setOfferedPrice(event.target.value)}
+                />
+
+                <Label htmlFor="30%">%30'si Kadar Teklif Ver</Label>
               </LabelContainer>
               <LabelContainer>
-                <input type="radio" id="30%" name="offer30" value="huey2" />
-                <Label htmlFor="%30">%30'si Kadar Teklif Ver</Label>
+                <input
+                  type="radio"
+                  id="40%"
+                  name="offer"
+                  value={itemDetail?.price * 0.4}
+                  onChange={(event) => setOfferedPrice(event.target.value)}
+                />
+                <Label htmlFor="40%">%40'si Kadar Teklif Ver</Label>
               </LabelContainer>
-              <LabelContainer>
-                <input type="radio" id="40%" name="offer40" value="huey3" />
-                <Label htmlFor="%40">%40'si Kadar Teklif Ver</Label>
-              </LabelContainer>
-              <OfferInput placeholder={"Teklifi Belirle"} />
-              <ApproveButton>Onayla</ApproveButton>
+              <OfferInput
+                placeholder={"Teklifi Belirle"}
+                value={offeredPrice}
+                onChange={(e) => setOfferedPrice(e.target.value)}
+              />
+              <ApproveButton
+                onClick={() => {
+                  setPrice(true);
+                  closeOfferModal();
+                  sendOfferRequest();
+                }}
+              >
+                Onayla
+              </ApproveButton>
             </div>
           </div>
         </Modal>
@@ -190,7 +243,7 @@ const ProductDetail = ({ match }) => {
           backgroundColor: "#F2F2F2",
           paddingTop: "5px",
           width: "100%",
-          height: "872px",
+          height: "889.4px",
         }}
       >
         {delay ? (
@@ -219,12 +272,61 @@ const ProductDetail = ({ match }) => {
               </InfoContainer>
               <PriceContainer>
                 <p style={{ fontWeight: "bold" }}>{itemDetail?.price} TL</p>
-              </PriceContainer>
-              <ButtonsContainer>
-                <BuyButton onClick={openBuyModal}>Satın Al</BuyButton>
 
-                <OfferButton onClick={openOfferModal}>Teklif Ver</OfferButton>
-              </ButtonsContainer>
+                {price ? (
+                  <div
+                    style={{
+                      width: "230px",
+                      height: "36px",
+                      backgroundColor: "#F2F2F2",
+                      borderRadius: "8px",
+                      flexDirection: "initial",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                      display: "flex",
+                      marginTop: "2px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "15px",
+                        color: "#B1B1B1",
+                        paddingLeft: "10px",
+                      }}
+                    >
+                      Verilen Teklif:{" "}
+                    </p>
+                    <p style={{ fontSize: "15px", fontWeight: "bold" }}>
+                      {" "}
+                      {offeredPrice} TL
+                    </p>
+                  </div>
+                ) : (
+                  <div style={{ display: "none" }}></div>
+                )}
+              </PriceContainer>
+
+              {isBought ? (
+                <NotAvaliableButton>Bu Ürün Satışta Değil</NotAvaliableButton>
+              ) : (
+                <ButtonsContainer>
+                  <BuyButton onClick={openBuyModal}>Satın Al</BuyButton>
+                  {offeredPrice ? (
+                    <OfferButton
+                      onClick={() => {
+                        setPrice(false);
+                        offeredPriceToEmpty();
+                      }}
+                    >
+                      Teklifi Geri Çek
+                    </OfferButton>
+                  ) : (
+                    <OfferButton onClick={() => openOfferModal(true)}>
+                      Teklif Ver
+                    </OfferButton>
+                  )}
+                </ButtonsContainer>
+              )}
               <DescriptionContainer>
                 <DescriptionHeader>Açıklama</DescriptionHeader>
                 <Description>{itemDetail?.description}</Description>

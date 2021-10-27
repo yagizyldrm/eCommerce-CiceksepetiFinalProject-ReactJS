@@ -52,6 +52,12 @@ border-radius:8px;
 font-size:15px;
 padding:10px;
 box-sizing: border-box;
+
+ &:active{
+  border:1px solid #4B9CE2;
+  background-color:#F0F8FF;
+  color:#4B9CE2;
+ }
 `;
 
 export const Label = Styled.label`

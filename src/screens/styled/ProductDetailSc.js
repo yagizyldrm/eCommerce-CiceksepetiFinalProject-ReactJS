@@ -51,14 +51,27 @@ text-transform:capitalize;
 `;
 export const PriceContainer = Styled.div`
 font-size:23px;
-display:flex;
 color:#525252;
 margin-top:30px;
+padding:0;
+display:flex;
+flex-direction:column;
 `;
 export const ButtonsContainer = Styled.div`
 margin: 30px 0 30px 0;
 max-width:480px;
 
+`;
+export const NotAvaliableButton = Styled.button`
+width:250px;
+height:45px;
+border:none;
+border-radius:8px;
+color:#FAAD60;
+background-color:#FFF0E2;
+margin:30px 0;
+font-size:18px;
+font-weight:bold;
 `;
 export const BuyButton = Styled.button`
 border:none;
