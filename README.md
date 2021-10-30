@@ -24,4 +24,10 @@ Bilinen eksikler;
 6-Bazı imageların sayfalar yenilendiği zaman bozulması
 7-Console Warningler
 
+Performans Değerleri;
+Performance:27,
+Accessibility:90,
+Best Practice:93,
+Seo:100.
+
 Bu bootcamp sayesinde her şeyi olmasa da bir çok şeyi öğrendim ve kendimi geliştirdim. Fazlasıyle zorlayıcı bir süreç olmasına rağmen ben çok keyif aldım. Bana bu imkanları sağladığınız, bizimle bire bir iletişim kurduğunuz ve bir insan olarak değerli hissettirdiğiniz için Patika.dev ve Çiçeksepeti/Lolaflora ailesine çok teşekkür ederim.
