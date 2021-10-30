@@ -25,7 +25,14 @@ Bilinen eksikler;
 7-Console Warningler
 
 Performans Değerleri;
+Mobile;
 Performance:27,
+Accessibility:90,
+Best Practice:93,
+Seo:100.
+
+Desktop;
+Performance:69,
 Accessibility:90,
 Best Practice:93,
 Seo:100.
